@@ -1,4 +1,4 @@
-import { connectDB } from "/util/database";
+import { connectDB } from "/lib/database";
 
 export default async function Info({ params }) {
     const charName = decodeURI(params.charName);
@@ -8,7 +8,7 @@ export default async function Info({ params }) {
         <div>
             {result.equip.map((v, i) => {
                 return (
-                    <div>
+                    <div key={i}>
                         <span>{v.title}</span>
                         <span>{v.starForce}</span>
                     </div>
