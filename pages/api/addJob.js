@@ -5,9 +5,10 @@ export default async function handler(req, res) {
 
     if (req.method === "POST") {
         try {
-            const exampleData = { charName: req.body.name };
-            await addJob(exampleData);
-            res.redirect(302, `/info/${encodeURIComponent(req.body.name)}`);
+            const data = { charName: req.body.charName };
+            console.log(data);
+            await addJob(data);
+            res.redirect(302, `/info/${encodeURIComponent(req.body.charName)}`);
         } catch (error) {
             console.error("작업 추가 중 오류 :", error);
             res.status(500).json({ error: "작업 추가 중 오류 " });

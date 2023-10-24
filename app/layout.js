@@ -1,8 +1,5 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
     title: "Create Next App",
@@ -12,11 +9,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <div>
-                    <Link href="/">Main</Link>
+            <body >
+                <div className="h-full m-2 font-extrabold fixed">
+                    <Link href="/" className="text-3xl">
+                        Maple Info
+                    </Link>
                 </div>
-                {children}
+                <div className=" pt-14">{children}</div>
             </body>
         </html>
     );

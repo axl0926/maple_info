@@ -1,5 +1,5 @@
-import { connectDB } from "/lib/database";
-import getEquip from "/lib/fetcher";
+import { connectDB } from "@/lib/database";
+import getEquip from "@/lib/fetcher";
 
 export default async function handler(req, res) {
     const name = req.body.name;
