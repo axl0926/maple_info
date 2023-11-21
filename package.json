@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "lint": "next lint",
-        "start": "concurrently \"npm run dev\" \"cd C:\\Users\\user\\code\\maple_info\\queue && node queue.js\""
+        "start": "concurrently \"npm run dev\" \"cd C:\\Users\\user\\code\\maple_info\\queue && node queue.js\"",
+        "prod": "next start"
     },
     "dependencies": {
         "autoprefixer": "10.4.14",

@@ -1,4 +1,4 @@
-import queue from "@/lib/queue";
+import queue from "/lib/queue";
 
 
 
