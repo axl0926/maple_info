@@ -1,25 +1,28 @@
 {
-  "name": "maple",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "autoprefixer": "10.4.14",
-    "axios": "^1.4.0",
-    "bull": "^4.11.3",
-    "cheerio": "^1.0.0-rc.12",
-    "eslint": "8.46.0",
-    "eslint-config-next": "13.4.13",
-    "mongodb": "^5.7.0",
-    "next": "13.4.13",
-    "postcss": "8.4.27",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3"
-  }
+    "name": "maple",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "lint": "next lint",
+        "start": "concurrently \"npm run dev\" \"cd C:\\Users\\user\\code\\maple_info\\queue && node queue.js\""
+    },
+    "dependencies": {
+        "autoprefixer": "10.4.14",
+        "axios": "^1.4.0",
+        "bull": "^4.11.3",
+        "cheerio": "^1.0.0-rc.12",
+        "concurrently": "^8.2.2",
+        "eslint": "8.46.0",
+        "eslint-config-next": "13.4.13",
+        "ioredis": "^5.3.2",
+        "mongodb": "^5.7.0",
+        "next": "13.4.13",
+        "postcss": "8.4.27",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-query": "^3.39.3",
+        "tailwindcss": "3.3.3"
+    }
 }
