@@ -2,6 +2,8 @@
 
 import { useQuery } from "react-query";
 import ItemBox from "@/components/ItemBox";
+import Equip from "@/components/Equip";
+import EquipBox from "@/components/EquipBox";
 export default function Info({ params }) {
     const characterName = params.characterName;
 
@@ -31,9 +33,7 @@ export default function Info({ params }) {
                         </div>
                     </div>
                     <div className="flex flex-col flex-wrap h-[80vh]">
-                        {data.data.equip.map((v, i) => {
-                            return <ItemBox key={i} itemInfo={v}></ItemBox>;
-                        })}
+                        <EquipBox itemInfos={data.data.equip}></EquipBox>
                     </div>
                 </div>
             )}

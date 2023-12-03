@@ -24,6 +24,7 @@ export default async function handler(req, res) {
             if (job.data.characterName === characterName) {
                 const jobState = await job.getState();
                 const jobPosition = await getJobPosition(job, waitingJobs);
+                console.log(job.data.characterName, jobState, jobPosition)
                 return res.status(200).json({ jobState: jobState, jobPosition: jobPosition });
             }
         }
