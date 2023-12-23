@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import axios from "axios";
 import Snackbar from "@/components/Snackbar";
 
@@ -8,21 +7,20 @@ export default function Home() {
     const [characterName, setCharacterName] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [snackBar, setSnackBar] = useState(false);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const characterUrl = (await axios.post("/api/getCharacterUrl", { characterName })).data;
-            if (!characterUrl) {
-                setSnackBar("characterUrl");
+            const ocid = await (await fetch(`/api/getOcid?characterName=${characterName}`)).json();
+            if (!ocid) {
+                setSnackBar("ocid");
                 return;
             }
-            const job = await axios.post("/api/addJob", { characterName: characterName, characterUrl: characterUrl },{ timeout: 10000 });
-            window.location.href = `/info/${encodeURIComponent(characterName)}`;
+            const res = await fetch(`/api/getItemEquipment?ocid=${ocid}`);
+            res.status === 200 || 409 ? (window.location.href = `/info/${ocid}`) : setSnackBar("ocid");
         } catch (error) {
             console.error(error);
-            setSnackBar("job");
+            setSnackBar("ocid");
         } finally {
             setIsSubmitting(false);
         }
@@ -39,8 +37,10 @@ export default function Home() {
                     검색
                 </button>
             </form>
-            {snackBar=="characterUrl" && <Snackbar message={"존재하지 않는 캐릭터 명 입니다."} setSnackBar={setSnackBar}></Snackbar>}
-            {snackBar=="job" && <Snackbar message={"작업 서버의 응답이 없습니다."} setSnackBar={setSnackBar}></Snackbar>}
+            <span className=" text-white opacity-80">
+                Ex ) <button onClick={() => setCharacterName("도적")}>도적</button>,<button onClick={() => setCharacterName("전사")}>전사</button>,<button onClick={() => setCharacterName("궁수")}>궁수</button>
+            </span>
+            {snackBar == "ocid" && <Snackbar message={"접속기록이 없는 캐릭터 명 입니다."} setSnackBar={setSnackBar}></Snackbar>}
         </div>
     );
 }
