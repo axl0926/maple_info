@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Equip from "@/components/Equip";
 
 export default function EquipBox({ itemEquipment }) {
@@ -39,7 +38,7 @@ export default function EquipBox({ itemEquipment }) {
             <span className=" text-[#3E444C] text-[12px] font-bold">EQUIPMENT</span>
             <div className="grid grid-cols-5 p-5">
                 {EquipBoxOrder.map((order, i) => {
-                    const index = itemEquipment.findIndex((info) => info.item_equipment_slot === equipmentSlot[order]);
+                    const index = itemEquipment.findIndex((info) => order && info.item_equipment_slot === equipmentSlot[order]);
                     const itemInfo = index > -1 ? itemEquipment[index] : null;
                     return <Equip key={i} itemInfo={itemInfo} slotLabel={order} />;
                 })}

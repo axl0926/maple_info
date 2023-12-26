@@ -1,5 +1,6 @@
 import getDate from "@/lib/getDate";
-import { connectDB } from "@/lib/database.js";
+import compareDate from "@/lib/compareDate";
+import { connectDB } from "@/lib/database";
 import fetchData from "@/lib/fetchData";
 
 const date = getDate();
@@ -13,17 +14,21 @@ export default async function handler(req, res) {
 
         const collection = (await connectDB).db("maplestory").collection("character");
         const existingItem = await collection.findOne({ ocid: ocid });
-
+        const isNeedUpdate = existingItem ? compareDate(existingItem.date, date) : true;
         const basicInfo = await getBasicInfo(ocid, date);
         const equip = await getEquip(ocid, date);
         const android = await getAndroid(ocid, date);
-
         equip.item_equipment.push({ item_equipment_slot: "안드로이드", item_icon: android.android_icon, item_namd: android.android_name, ...android });
         equip.ocid = ocid;
-
         const response = { ...equip, ...basicInfo };
-        if (!existingItem) {
-            let dbResult = await collection.insertOne(response);
+
+        if (isNeedUpdate) {
+            let dbResult;
+            if (existingItem) {
+                dbResult = await collection.updateOne({ ocid: ocid }, { $set: response });
+            } else {
+                dbResult = await collection.insertOne(response);
+            }
             if (dbResult.insertedId) {
                 console.log("Insert successful");
             } else {

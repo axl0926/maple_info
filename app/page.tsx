@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
-import axios from "axios";
 import Snackbar from "@/components/Snackbar";
 
 export default function Home() {
-    const [characterName, setCharacterName] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [snackBar, setSnackBar] = useState(false);
+    const [characterName, setCharacterName] = useState<string>("");
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [snackBar, setSnackBar] = useState<false|string>(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);

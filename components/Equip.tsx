@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
-
 const tierColors = {
     레전드리: "border-[#1CFA1C] border-[2.5px] rounded-[0.8px]",
     유니크: "border-[#F7C912] border-[2.5px] rounded-[0.8px]",
     에픽: "border-[#C368FD] border-[2.5px] rounded-[0.8px]",
     레어: "border-[#74BAFF] border-[2.5px] rounded-[0.8px]",
 };
+
 export default function Equip({ itemInfo, slotLabel }) {
     const color = itemInfo?.potential_option_grade ? tierColors[itemInfo.potential_option_grade] : "rounded-sm";
     const visibility = slotLabel ? `bg-[#B7C9C8] relative ${color} border-solid shadow-[inset_0_2px_10px_0_rgb(0,0,0,0.25)] sh flex  justify-center items-center ` : "invisible";

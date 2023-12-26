@@ -1,9 +1,8 @@
 "use client";
 
 import { useQuery } from "react-query";
-import ItemBox from "@/components/ItemBox";
-import Equip from "@/components/Equip";
 import EquipBox from "@/components/EquipBox";
+import EquipDetail from "@/components/EquipDetail";
 
 export default function Info({ params }) {
     const ocid = params.ocid;
@@ -11,7 +10,6 @@ export default function Info({ params }) {
         queryKey: [`fetchData${ocid}`],
         queryFn: () => fetchData(ocid),
     });
-    console.log(data);
     return (
         <div>
             {data && (
@@ -28,6 +26,7 @@ export default function Info({ params }) {
                     </div>
                     <div className="flex flex-col flex-wrap h-[80vh]">
                         <EquipBox itemEquipment={data.item_equipment}></EquipBox>
+                        <EquipDetail itemInfo={data.item_equipment[0]}></EquipDetail>
                     </div>
                 </div>
             )}

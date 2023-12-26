@@ -1,0 +1,14 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isSameOrAfter);
+
+export default function compareDate(dbdate, date) {
+    const dbDateUTC = dayjs(dbdate).utc().startOf('day');
+    const dateUTC = dayjs(date).utc().startOf('day');
+    return dateUTC.isAfter(dbDateUTC);
+}
