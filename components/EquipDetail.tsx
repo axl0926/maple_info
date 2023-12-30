@@ -1,9 +1,15 @@
 "use client";
+const tierBorders = {
+    레전드리: "border-[#00CC99] border-[3px]",
+    유니크: "border-[#F7C912] border-[3px] ",
+    에픽: "border-[#7700CC] border-[3px]",
+    레어: "border-[#0085CB] border-[3px] ",
+};
 const tierColors = {
-    레전드리: "border-[#1CFA1C] border-[2.5px] rounded-[0.8px]",
-    유니크: "border-[#F7C912] border-[2.5px] rounded-[0.8px]",
-    에픽: "border-[#C368FD] border-[2.5px] rounded-[0.8px]",
-    레어: "border-[#74BAFF] border-[2.5px] rounded-[0.8px]",
+    레전드리: "text-[#C8F901] ",
+    유니크: "text-[#F7C912]",
+    에픽: "text-[#C368FD] ",
+    레어: "text-[#74BAFF] ",
 };
 const statOrder = ["str", "dex", "int", "luk", "max_hp", "max_mp", "attack_power", "magic_power", "armor", "speed", "jump", "boss_damage", "ignore_monster_armor", "all_stat", "damage", "equipment_level_decrease", "max_hp_rate", "max_mp_rate"];
 const statList = {
@@ -27,38 +33,37 @@ const statList = {
     max_mp_rate: { name: "최대 MP", unit: "%" },
 };
 export default function EquipDetail({ itemInfo }) {
-    const fullStar = "★★★★★    ".repeat(Math.floor(itemInfo.starforce / 5));
-    const star = "★".repeat(itemInfo.starforce % 5);
-    const stars = `${fullStar} ${star}`;
-
+    const starGroups = Array.from({ length: Math.ceil(itemInfo.starforce / 5) }, (_, i) => "★".repeat(Math.min(5, itemInfo.starforce - i * 5)) + "☆".repeat(Math.max(0, 5 - itemInfo.starforce + i * 5)));
     return (
-        <div className="relative flex flex-col overflow-hidden rounded-md border-[#B0B2B3] border-2 bg-[#2E2E2E] shadow-[inset #1C1C1C 0px 0px 1px 1px]">
-            <div className="absolute top-0 left-0 border-0 h-[2rem] border-l-[2rem] border-b-[2rem] border-solid border-transparent border-l-[#d5d5d538]"></div>
-            <div>
-                {itemInfo.starforce !== 0 && <div>{stars}</div>}
-                <div>{itemInfo.item_name}</div>
-                {itemInfo.potential_option_grade && <div>( {itemInfo.potential_option_grade} 아이템 )</div>}
+        <div className=" z-50  flex flex-col rounded-md border-[#B0B2B3] border-2 bg-[#2E2E2E] shadow-[inset #1C1C1C 0px 0px 1px 1px] h-auto w-[400px]">
+            <div className="absolute w-20 overflow-hidden h-20  pt-2">
+                <div className=" absolute top-[-50px] left-[-50px] h-[100px] w-[100px] -rotate-45 opacity-60 bg-gradient-to-t from-[#3F3F3F] to-white  "></div>
             </div>
-            <div className="flex flex-row">
-                <div>
-                    <img src={itemInfo.item_icon} />
+            <div className="p-2 flex flex-col items-center border-b-2 border-dashed border-[#151515] ">
+                <div className="flex flex-row gap-2 w-[60%] flex-wrap justify-center text-yellow-500 text-sm">{itemInfo.starforce !== 0 && starGroups.map((group, i) => <div key={i}>{group}</div>)}</div>
+                <div className=" text-lg font-bold">{itemInfo.item_name}</div>
+                {itemInfo.potential_option_grade && <div className=" text-sm">( {itemInfo.potential_option_grade} 아이템 )</div>}
+            </div>
+            <div className="p-2 flex flex-row  border-b-2 border-dashed border-[#151515] ">
+                <div className={`bg-gradient-to-t from-[#C0C0C0] to-[#898989] ${tierBorders[itemInfo?.potential_option_grade]}  rounded-[5px] relative flex justify-center items-center w-20 h-20`}>
+                    <img src={itemInfo.item_icon} className="h-[80%] z-10" /> <div className="absolute top-[80%] w-[20px] h-[5px] bg-black blur-sm"></div>
                 </div>
             </div>
-            <div className="flex flex-col">
+            <div className=" p-2 flex flex-col border-b-2 border-dashed border-[#151515] ">
                 <span>장비분류 : {itemInfo.item_equipment_part}</span>
                 {statOrder.map((v, i) => itemInfo.item_total_option[v] != 0 && <StatBox key={i} stat={v} itemInfo={itemInfo}></StatBox>)}
             </div>
             {itemInfo.potential_option_grade && (
-                <div className="flex flex-col">
-                    <span>잠재옵션</span>
+                <div className="flex flex-col p-2 border-b-2 border-dashed border-[#151515] ">
+                    <span className={tierColors[itemInfo?.potential_option_grade]}>잠재옵션</span>
                     <span>{itemInfo.potential_option_1}</span>
                     <span>{itemInfo.potential_option_2}</span>
                     <span>{itemInfo.potential_option_3}</span>
                 </div>
             )}
             {itemInfo.additional_potential_option_grade && (
-                <div className="flex flex-col">
-                    <span>에디셔널 잠재옵션</span>
+                <div className="flex flex-col p-2">
+                    <span className={tierColors[itemInfo?.additional_potential_option_grade]}>에디셔널 잠재옵션</span>
                     <span>{itemInfo.additional_potential_option_1}</span>
                     <span>{itemInfo.additional_potential_option_2}</span>
                     <span>{itemInfo.additional_potential_option_3}</span>
@@ -77,7 +82,7 @@ function StatBox({ stat, itemInfo }) {
     return (
         <>
             <span>
-                <span className={isUpgraded && "text-[#5EEBEB]"}>
+                <span className={isUpgraded ?"text-[#5EEBEB]":undefined}>
                     {statList[stat].name} : {totalOption}
                     {statList[stat]?.unit}{" "}
                 </span>

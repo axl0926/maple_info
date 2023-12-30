@@ -2,11 +2,10 @@
 
 import { useQuery } from "react-query";
 import EquipBox from "@/components/EquipBox";
-import EquipDetail from "@/components/EquipDetail";
 
 export default function Info({ params }) {
     const ocid = params.ocid;
-    const {data} = useQuery({
+    const { data } = useQuery({
         queryKey: [`fetchData${ocid}`],
         queryFn: () => fetchData(ocid),
     });
@@ -26,7 +25,6 @@ export default function Info({ params }) {
                     </div>
                     <div className="flex flex-col flex-wrap h-[80vh]">
                         <EquipBox itemEquipment={data.item_equipment}></EquipBox>
-                        <EquipDetail itemInfo={data.item_equipment[0]}></EquipDetail>
                     </div>
                 </div>
             )}

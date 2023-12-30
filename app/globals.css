@@ -57,3 +57,6 @@ body {
         --background-end-rgb: 0, 0, 0;
     }
 }
+.example-arrow {
+    background-color: rgb(222, 34, 72);
+}
