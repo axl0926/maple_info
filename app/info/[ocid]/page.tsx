@@ -23,7 +23,7 @@ export default function Info({ params }) {
                             <p>레벨 : {data.character_level}</p>
                         </div>
                     </div>
-                    <div className="flex flex-col flex-wrap h-[80vh] items-center">
+                    <div className="flex flex-col flex-wrap items-center">
                         <EquipBox itemEquipment={data.item_equipment}></EquipBox>
                     </div>
                 </div>

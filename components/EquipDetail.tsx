@@ -40,7 +40,7 @@ export default function EquipDetail({ itemInfo }) {
                 <div className=" absolute top-[-50px] left-[-50px] h-[100px] w-[100px] -rotate-45 opacity-60 bg-gradient-to-t from-[#3F3F3F] to-white  "></div>
             </div>
             <div className="flex flex-col items-center equip-detail-border">
-                <div className="flex flex-row gap-2 w-[60%] flex-wrap justify-center text-yellow-500 text-sm">{itemInfo.starforce !== 0 && starGroups.map((group, i) => <div key={i}>{group}</div>)}</div>
+                <div className={`flex flex-row gap-2 w-[60%] flex-wrap justify-center  text-sm ${itemInfo.starforce_scroll_flag == "미사용" ? "text-yellow-500" : " text-sky-500"}`}>{itemInfo.starforce !== 0 && starGroups.map((group, i) => <div key={i}>{group}</div>)}</div>
                 <div className=" text-lg font-bold">{itemInfo.item_name}</div>
                 {itemInfo.potential_option_grade && <div className=" text-sm">( {itemInfo.potential_option_grade} 아이템 )</div>}
             </div>
@@ -49,13 +49,16 @@ export default function EquipDetail({ itemInfo }) {
                     <img src={itemInfo.item_icon} className=" scale-150  z-10" />
                     <div className="absolute top-[80%] w-[20px] h-[5px] bg-black blur-sm"></div>
                 </div>
+                <div className="flex items-center justify-center text-center">
+                    <span className=" text-yellow-400">▪ REQ LEV : {itemInfo.item_base_option.base_equipment_level}</span>
+                </div>
             </div>
             <div className="flex flex-col equip-detail-border ">
                 <span>장비분류 : {itemInfo.item_equipment_part}</span>
                 {statOrder.map((v, i) => itemInfo.item_total_option[v] != 0 && <StatBox key={i} stat={v} itemInfo={itemInfo}></StatBox>)}
             </div>
             {itemInfo.potential_option_grade && (
-                <div className={`flex flex-col p-2 ${itemInfo.additional_potential_option_grade && "equip-detail-border"} `}>
+                <div className={`flex flex-col p-2 ${(itemInfo.item_description || itemInfo.soul_name || itemInfo.additional_potential_option_grade) && "equip-detail-border"} `}>
                     <span className={tierColors[itemInfo?.potential_option_grade]}>잠재옵션</span>
                     <span>{itemInfo.potential_option_1}</span>
                     <span>{itemInfo.potential_option_2}</span>
@@ -63,7 +66,7 @@ export default function EquipDetail({ itemInfo }) {
                 </div>
             )}
             {itemInfo.additional_potential_option_grade && (
-                <div className={`flex flex-col p-2 ${itemInfo.item_description && "equip-detail-border"}`}>
+                <div className={`flex flex-col p-2 ${(itemInfo.item_description || itemInfo.soul_name) && "equip-detail-border"}`}>
                     <span className={tierColors[itemInfo?.additional_potential_option_grade]}>에디셔널 잠재옵션</span>
                     <span>{itemInfo.additional_potential_option_1}</span>
                     <span>{itemInfo.additional_potential_option_2}</span>
@@ -71,8 +74,19 @@ export default function EquipDetail({ itemInfo }) {
                 </div>
             )}
             {itemInfo.item_description && (
-                <div className="flex flex-col p-2 ">
+                <div className={`flex flex-col p-2 ${itemInfo.soul_name && "equip-detail-border"}`}>
                     <span>{itemInfo.item_description}</span>
+                    {itemInfo.special_ring_level !== 0 && (
+                        <span className=" text-orange-400">
+                            [ 특수 스킬 반지 ] {itemInfo.item_name} {itemInfo.special_ring_level} 레벨
+                        </span>
+                    )}
+                </div>
+            )}
+            {itemInfo.soul_name && (
+                <div className="flex flex-col p-2 ">
+                    <span className=" text-yellow-400">{itemInfo.soul_name}</span>
+                    <span>{itemInfo.soul_option}</span>
                 </div>
             )}
         </div>

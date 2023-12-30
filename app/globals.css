@@ -63,9 +63,6 @@ body {
         --background-end-rgb: 0, 0, 0;
     }
 }
-.example-arrow {
-    background-color: rgb(222, 34, 72);
-}
 @layer components {
     .equip-detail-border {
         @apply p-2 border-b-2 border-dashed border-black;
