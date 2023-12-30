@@ -32,9 +32,9 @@ export default function EquipBox({ itemEquipment }) {
     const EquipBoxOrder = ["RING4", null, "CAP", null, "EMBLEM", "RING3", "PENDANT2", "FORE HEAD", null, "BADGE", "RING2", "PENDANT", "EYEACC", "EARACC", "MEDAL", "RING1", "WEAPON", "CLOTHES", "SHOULDER", "SUB WEAPON", "POKET", "BELT", "PANTS", "GLOVES", "CAPE", null, null, "SHOES", "ANDROID", "HEART"];
  
     return (
-        <div className=" bg-gradient-to-b from-[#ECECEC] to-[#CDCDCD] rounded-md border-[10px] p-3 border-[#3E444C]">
-            <span className=" text-[#3E444C] text-[12px] font-bold">EQUIPMENT</span>
-            <div className="grid grid-cols-5 p-5">
+        <div className=" bg-gradient-to-b from-[#ECECEC] to-[#CDCDCD] rounded-md border-[10px] p-3 border-[#3E444C] md:w-96 w-4/5">
+            <span className=" text-[#3E444C] text-[12px] font-bold">EQUIPMENT</span> 
+            <div className="flex flex-row flex-wrap gap-1 m-5 justify-center">
                 {EquipBoxOrder.map((order, i) => {
                     const index = itemEquipment.findIndex((info) => order && info.item_equipment_slot === equipmentSlot[order]);
                     const itemInfo = index > -1 ? itemEquipment[index] : null;

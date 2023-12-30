@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+    scrollbar-width: 0;
+}
+*::-webkit-scrollbar {
+    width: 0;
+}
 @font-face {
     font-family: "Noto Sans KR";
     src: url("/fonts/NotoSansKR-Regular.ttf") format("truetype");
@@ -59,4 +65,9 @@ body {
 }
 .example-arrow {
     background-color: rgb(222, 34, 72);
+}
+@layer components {
+    .equip-detail-border {
+        @apply p-2 border-b-2 border-dashed border-black;
+    }
 }

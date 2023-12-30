@@ -12,7 +12,7 @@ export default function Info({ params }) {
     return (
         <div>
             {data && (
-                <div className="flex items-start ">
+                <div className="flex items-start md:flex-row flex-col ">
                     <div className=" w-fit text-gray-900 font-bold rounded-md flex  items-center shrink-0">
                         <img src={data.character_image} />
                         <div className="">
@@ -23,7 +23,7 @@ export default function Info({ params }) {
                             <p>레벨 : {data.character_level}</p>
                         </div>
                     </div>
-                    <div className="flex flex-col flex-wrap h-[80vh]">
+                    <div className="flex flex-col flex-wrap h-[80vh] items-center">
                         <EquipBox itemEquipment={data.item_equipment}></EquipBox>
                     </div>
                 </div>
