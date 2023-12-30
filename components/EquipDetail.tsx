@@ -50,7 +50,7 @@ export default function EquipDetail({ itemInfo }) {
                     <div className="absolute top-[80%] w-[20px] h-[5px] bg-black blur-sm"></div>
                 </div>
                 <div className="flex items-center justify-center text-center">
-                    <span className=" text-yellow-400">▪ REQ LEV : {itemInfo.item_base_option.base_equipment_level}</span>
+                    <span className=" text-yellow-400 p-2">▪ REQ LEV : {itemInfo.item_base_option.base_equipment_level}</span>
                 </div>
             </div>
             <div className="flex flex-col equip-detail-border ">
